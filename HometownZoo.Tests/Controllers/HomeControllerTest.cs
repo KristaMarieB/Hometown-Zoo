@@ -13,42 +13,46 @@ namespace HometownZoo.Tests.Controllers
     public class HomeControllerTest
     {
         [TestMethod]
-        public void Index()
+        public void Index_ReturnsNonNullViewResult()
         {
             // Arrange
-            HomeController controller = new HomeController();
+            HomeController home = new HomeController();
 
             // Act
-            ViewResult result = controller.Index() as ViewResult;
+            ViewResult result = home.Index() as ViewResult;
 
             // Assert
             Assert.IsNotNull(result);
         }
 
         [TestMethod]
-        public void About()
+        public void About_ReturnsNonNullViewResult()
         {
-            // Arrange
+            HomeController about = new HomeController();
+            ViewResult result = about.About() as ViewResult;
+            Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        public void Contact_ReturnsNonNullViewResult()
+        {
+            HomeController contact = new HomeController();
+            ViewResult result = contact.Contact() as ViewResult;
+            Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        public void About_ShouldHaveViewBagMessage()
+        {
             HomeController controller = new HomeController();
 
-            // Act
             ViewResult result = controller.About() as ViewResult;
 
-            // Assert
-            Assert.AreEqual("Your application description page.", result.ViewBag.Message);
-        }
+            string message = result.ViewBag.Message;
 
-        [TestMethod]
-        public void Contact()
-        {
-            // Arrange
-            HomeController controller = new HomeController();
-
-            // Act
-            ViewResult result = controller.Contact() as ViewResult;
-
-            // Assert
-            Assert.IsNotNull(result);
+            Assert.IsNotNull(message);
+            Assert.AreNotEqual(string.Empty, message.Trim());
+            //Assert.AreEqual("Your application description page.", result.ViewBag.Message);
         }
     }
 }
