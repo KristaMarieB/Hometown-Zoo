@@ -25,5 +25,18 @@ namespace HometownZoo.Models
             //    .OrderBy(a => a.Species)
             //    .ToList();
         }
+
+        public static void AddAnimal(Animal animal, ApplicationDbContext db)
+        {
+            if(animal is null)
+            {
+                throw new ArgumentNullException($"Parameter {nameof(animal)} cannot be null"); // used explicit syntax so if we renmae variable then this updates too
+            }
+
+            // TODO: Ensure duplicate names are disallowed... (for me it would same species & same name disallowed)
+
+            db.Animals.Add(animal);
+            db.SaveChanges();
+        }
     }
 }
